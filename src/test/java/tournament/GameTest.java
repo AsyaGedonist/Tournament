@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class GameTest {
     Game game = new Game();
@@ -18,20 +19,27 @@ public class GameTest {
 
     @BeforeEach
     public void setup() {
-        game.register(player1);
-        game.register(player2);
-        game.register(player3);
-        game.register(player4);
-        game.register(player5);
+        game.register(player1, "Средний");
+        game.register(player2, "Мастер");
+        game.register(player3, "Средний");
+        game.register(player4, "Новичок");
+        game.register(player5, "Мастер");
     }
 
     @Test
     public void ShouldViewAll() {
-        ArrayList<Player> expected = new ArrayList<>(Arrays.asList(player1, player2, player3, player4, player5));
-        ArrayList<Player> actual = game.findAll();
+        HashMap<Player, String > expected = new HashMap<Player, String >(){{
+           put(player1, "Средний");
+           put(player2, "Мастер");
+           put(player3, "Средний");
+           put(player4, "Новичок");
+           put(player5, "Мастер");
+        }};
 
+        HashMap<Player, String> actual = game.findAll();
         Assertions.assertEquals(expected, actual);
     }
+
 
     @Test
     public void ShouldViewByFindName() {

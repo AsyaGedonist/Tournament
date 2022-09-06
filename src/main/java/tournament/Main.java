@@ -13,13 +13,6 @@ public class Main {
         Player player4 = new Player(4, "Billy", 3);
 
 
-        game.register(player1);
-        game.register(player2);
-        game.register(player3);
-        game.register(player4);
-
-        System.out.println(game.findByName("Asya"));
-
 
     }
 }

@@ -1,21 +1,22 @@
 package tournament;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
-    public ArrayList<Player> registered = new ArrayList<>();
+    public HashMap<Player, String> registered = new HashMap<>();
 
-    public void register(Player player) {
-        registered.add(player);
+    public void register(Player player, String level) {
+        registered.put(player, level);
     }
 
-    public ArrayList<Player> findAll() {
+    public HashMap<Player, String> findAll() {
         return registered;
     }
 
     public Player findByName(String name) {
         Player thisPlayer = null;
-        for (Player player : registered) {
+        for (Player player : registered.keySet()) {
             if (player.getName() == name) {
                 thisPlayer = player;
             }
@@ -29,7 +30,7 @@ public class Game {
         Player firstPlayer = null;
         Player secondPlayer = null;
 
-        for (Player player : registered) {
+        for (Player player : registered.keySet()) {
             if (player.getName() == playerName1) {
                 index1++;
                 firstPlayer = player;
@@ -38,7 +39,7 @@ public class Game {
         if (index1 == 0) {
             throw new NotRegisteredException("Player " + playerName1 + " not found");
         } else {
-            for (Player player : registered) {
+            for (Player player : registered.keySet()) {
                 if (player.getName() == playerName2) {
                     index2++;
                     secondPlayer = player;
