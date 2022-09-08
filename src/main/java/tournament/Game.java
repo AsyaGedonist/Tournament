@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game {
-    public HashMap<Player, String> registered = new HashMap<>();
+    private HashMap<Player, String> registered = new HashMap<>();
 
     public void register(Player player, String level) {
         registered.put(player, level);
@@ -17,40 +17,23 @@ public class Game {
     public Player findByName(String name) {
         Player thisPlayer = null;
         for (Player player : registered.keySet()) {
-            if (player.getName() == name) {
+            if (player.getName().equals(name)) {
                 thisPlayer = player;
             }
         }
-        return thisPlayer;
+        if (thisPlayer == null) {
+            throw new NotRegisteredException("Player " + name + " not found");
+        } else {
+            return thisPlayer;
+        }
     }
 
     public int round(String playerName1, String playerName2) {
-        int index1 = 0;
-        int index2 = 0;
-        Player firstPlayer = null;
-        Player secondPlayer = null;
 
-        for (Player player : registered.keySet()) {
-            if (player.getName() == playerName1) {
-                index1++;
-                firstPlayer = player;
-            }
-        }
-        if (index1 == 0) {
-            throw new NotRegisteredException("Player " + playerName1 + " not found");
-        } else {
-            for (Player player : registered.keySet()) {
-                if (player.getName() == playerName2) {
-                    index2++;
-                    secondPlayer = player;
-                }
-            }
-            if (index2 == 0) {
-                throw new NotRegisteredException("Player " + playerName2 + " not found");
-            } else {
-                int whoWin = firstPlayer.compareTo(secondPlayer);
-                return whoWin;
-            }
-        }
+        Player firstPlayer = findByName(playerName1);
+        Player secondPlayer = findByName(playerName2);
+
+        int whoWin = firstPlayer.compareTo(secondPlayer);
+        return whoWin;
     }
 }
